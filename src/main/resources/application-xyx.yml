@@ -1,0 +1,77 @@
+server:
+  port: 8102
+  servlet:
+    context-path: /boot-demo
+logging:
+  level:
+    springfox: error
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  application:
+    name: spring-boot-mongodb
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/Taskly
+  datasource:
+    url: jdbc:mysql://localhost:3306/taskly?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  # 资源信息
+  messages:
+    encoding: UTF-8
+    # 国际化资源文件路径（配置文件路径）
+    basename: i18n/messages
+  mvc:
+    pathmatch:
+      # Springfox使用的路径匹配是基于AntPathMatcher的，而Spring Boot 2.6.X使用的是PathPatternMatcher
+      matching-strategy: ANT_PATH_MATCHER
+
+mybatis-plus:
+  type-aliases-package: com.xyx.*.entity
+  # xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）
+  mapper-locations: classpath*:/mapper/**/*.xml
+  # 以下配置均有默认值,可以不设置
+  global-config:
+    db-config:
+      # 字段策略 IGNORED:"忽略判断"  NOT_NULL:"非 NULL 判断")  NOT_EMPTY:"非空判断"
+      where-strategy: NOT_EMPTY
+      # 主键类型 AUTO:"数据库ID自增" INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      id-type: assign-uuid
+  configuration:
+    # 如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段
+    call-setters-on-nulls: true
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+mybatis-plus-join:
+  #是否打印 mybatis plus join banner 默认true
+  banner: true
+  #全局启用副表逻辑删除(默认true) 关闭后关联查询不会加副表逻辑删除
+  sub-table-logic: true
+  #拦截器MappedStatement缓存(默认true)
+  ms-cache: true
+  #表别名(默认 t)
+  table-alias: t
+
+forest:
+  backend: okhttp3             # 后端HTTP框架（默认为 okhttp3）
+  max-connections: 1000        # 连接池最大连接数（默认为 500）
+  max-route-connections: 500   # 每个路由的最大连接数（默认为 500）
+  max-request-queue-size: 100  # [自v1.5.22版本起可用] 最大请求等待队列大小
+  max-async-thread-size: 300   # [自v1.5.21版本起可用] 最大异步线程数
+  max-async-queue-size: 16     # [自v1.5.22版本起可用] 最大异步线程池队列大小
+  timeout: 10000                # [已不推荐使用] 请求超时时间，单位为毫秒（默认为 3000）
+  connect-timeout: 10000        # 连接超时时间，单位为毫秒（默认为 timeout）
+  read-timeout: 10000           # 数据读取超时时间，单位为毫秒（默认为 timeout）
+  max-retry-count: 0           # 请求失败后重试次数（默认为 0 次不重试）
+  ssl-protocol: TLS            # 单向验证的HTTPS的默认TLS协议（默认为 TLS）
+  log-enabled: true            # 打开或关闭日志（默认为 true）
+  log-request: true            # 打开/关闭Forest请求日志（默认为 true）
+  log-response-status: true    # 打开/关闭Forest响应状态日志（默认为 true）
+  log-response-content: true   # 打开/关闭Forest响应内容日志（默认为 false）
+  async-mode: platform         # [自v1.5.27版本起可用] 异步模式（默认为 platform）

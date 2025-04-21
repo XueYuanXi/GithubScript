@@ -1,0 +1,20 @@
+package rules;
+dialect  "mvel"
+
+import com.xyx.boot.dto.Product
+
+rule Offer4Diamond
+    when
+        productObject : Product(type == Product.DIAMOND)
+    then
+        productObject.setDiscount(15);
+        System.out.println("Discount for Diamond is 15%");
+end
+
+rule Offer4Gold
+    when
+        productObject : Product(type == Product.GOLD)
+    then
+        productObject.setDiscount(25);
+        System.out.println("Discount for Gold is 25%");
+end

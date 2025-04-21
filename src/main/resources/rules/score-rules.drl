@@ -1,0 +1,39 @@
+package rules
+
+import com.xyx.boot.dto.Order
+
+//规则1：100元以下, 不加积分
+rule "score_1"
+when
+    $s : Order(amount <= 100)
+then
+    $s.setScore(0);
+    System.out.println("消费100元以下, 不加积分 ");
+end
+
+//规则2：100元-500元 加100积分
+rule "score_2"
+when
+    $s : Order(amount > 100 && amount <= 500)
+then
+    $s.setScore(100);
+    System.out.println("消费100元-500元 加100积分 ");
+end
+
+//规则3：500元-1000元 加500积分
+rule "score_3"
+when
+    $s : Order(amount > 500 && amount <= 1000)
+then
+    $s.setScore(500);
+    System.out.println("消费500元-1000元 加500积分 ");
+end
+
+//规则4：1000元 以上 加1000积分
+rule "score_4"
+when
+    $s : Order(amount > 1000)
+then
+    $s.setScore(1000);
+    System.out.println("消费1000元 以上 加1000积分 ");
+end
