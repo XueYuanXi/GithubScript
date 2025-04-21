@@ -25,5 +25,6 @@ class DroolsTests {
         //关闭会话
         kieSession.dispose();
         System.out.println("订单金额："+order.getAmount()+",订单积分："+order.getScore());
+        System.out.println("规则执行完毕");
     }
 }
